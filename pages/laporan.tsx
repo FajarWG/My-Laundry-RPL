@@ -161,7 +161,7 @@ function Charts() {
           <Select className="mt-1">
             <option selected>Juli</option>
           </Select>
-          <Select className="mt-1 w-80">
+          <Select className="mt-1 w-28">
             <option>2023</option>
           </Select>
         </div>
@@ -231,7 +231,7 @@ function Charts() {
           <Line {...lineOptions} />
           <ChartLegend legends={lineLegends} />
         </ChartCard>
-        <ChartCard title="Pertumbuhan Pesanan Layanan Laundry">
+        <ChartCard title="Pertumbuhan Pesanan Layanan Setahun">
           <Bar {...barOptions} />
           <ChartLegend legends={barLegends} />
         </ChartCard>
