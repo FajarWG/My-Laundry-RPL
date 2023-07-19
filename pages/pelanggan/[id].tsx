@@ -112,7 +112,10 @@ function CrateAccount() {
                       Total Harga
                     </td>
                     <td className="px-4 py-2 border-0 font-bold">
-                      : Rp. 20.000
+                      :{" "}
+                      {`Rp. ${new Intl.NumberFormat("id-ID").format(
+                        data.total_harga
+                      )}`}
                     </td>
                   </tr>
                 </tbody>
