@@ -48,6 +48,7 @@ function Dashboard() {
   interface IProps {
     nama_pelanggan: string;
     jumlah_pakaian: number;
+    layanan: string;
     status: string;
     status_pembayaran: string;
     tanggal: string;
@@ -168,6 +169,7 @@ function Dashboard() {
             <tr>
               <TableCell>Pelanggan</TableCell>
               <TableCell>Total Berat</TableCell>
+              <TableCell>Layanan</TableCell>
               <TableCell>Total Harga</TableCell>
               <TableCell>Tanggal</TableCell>
               <TableCell>Status</TableCell>
@@ -186,6 +188,9 @@ function Dashboard() {
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">{user.jumlah_pakaian} Kg</span>
+                </TableCell>
+                <TableCell>
+                  <span className="text-sm">{user.layanan}</span>
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">Rp. {user.total_harga}</span>

@@ -42,6 +42,7 @@ interface IProps {
   status_pembayaran: string;
   tanggal: string;
   total_harga: number;
+  layanan: string;
 }
 
 function Pesanan() {
@@ -94,6 +95,7 @@ function Pesanan() {
             <tr>
               <TableCell>Pelanggan</TableCell>
               <TableCell>Total Berat</TableCell>
+              <TableCell>Layanan</TableCell>
               <TableCell>Total Harga</TableCell>
               <TableCell>Tanggal</TableCell>
               <TableCell>Status</TableCell>
@@ -114,6 +116,9 @@ function Pesanan() {
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">{user.jumlah_pakaian} Kg</span>
+                </TableCell>
+                <TableCell>
+                  <span className="text-sm">{user.layanan}</span>
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">Rp. {user.total_harga}</span>

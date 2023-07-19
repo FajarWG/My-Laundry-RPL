@@ -14,8 +14,10 @@ function Forms() {
   const [quantity, setQuantity] = useState("");
   const [service, setService] = useState("");
   const [payment, setPayment] = useState("Belum Dibayar");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleSubmit = async () => {
+    setIsLoaded(true);
     const data = {
       nama_pelanggan: name,
       jumlah_pakaian: parseInt(quantity),
@@ -31,6 +33,7 @@ function Forms() {
     } else {
       toast.error("Pesanan gagal ditambahkan");
     }
+    setIsLoaded(false);
   };
 
   return (
@@ -91,7 +94,7 @@ function Forms() {
             </Select>
           </Label>
         </div>
-        <Button onClick={handleSubmit} className="mt-4">
+        <Button onClick={handleSubmit} className="mt-4" disabled={isLoaded}>
           Pesan
         </Button>
       </div>
