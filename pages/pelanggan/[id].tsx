@@ -59,14 +59,14 @@ function CrateAccount() {
               <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200 text-center">
                 Pesanan My Laundry
               </h1>
-              <table className="table-auto w-full border-0">
+              <table className="table-auto w-full border-0 text-gray-700 dark:text-gray-200">
                 <thead>
                   <tr>
                     <th className="px-4 py-2 text-gray-600"></th>
                     <th className="px-4 py-2 text-gray-600"></th>
                   </tr>
                 </thead>
-                <tbody className="text-gray-700 dark:text-gray-200">
+                <tbody>
                   <tr>
                     <td className="px-4 py-2 border-0 ">Nama</td>
                     <td className="px-4 py-2 border-0">
