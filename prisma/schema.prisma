@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Layanan {
+  id_layanan        String @id @default(auto()) @map("_id") @db.ObjectId
+  nama_layanan      String
+  estimasi_waktu    Int
+  deskripsi_layanan String
+  harga             Int
+}
+
+model Pesanan {
+  id_pesanan        String   @id @default(auto()) @map("_id") @db.ObjectId
+  tanggal           DateTime @default(now())
+  nama_pelanggan    String
+  jumlah_pakaian    Int
+  layanan           String
+  total_harga       Int
+  status_pembayaran String
+  status            String   @default("Diproses")
+  updated_at        DateTime @updatedAt
+}
+
+model Laporan {
+  id_laporan       String @id @default(auto()) @map("_id") @db.ObjectId
+  tanggal_laporan  String
+  jumlah_pesanan   Int
+  total_pendapatan Int
+}
