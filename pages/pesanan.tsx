@@ -59,6 +59,7 @@ function Pesanan() {
 
   const [page, setPage] = useState(1);
   const [data, setData] = useState<[]>([]);
+  const [totalData, setTotalData] = useState(0);
 
   const resultsPerPage = 10;
 
@@ -73,17 +74,25 @@ function Pesanan() {
     return "success";
   };
 
-  const getData = async () => {
+  const getData = async (pages: number) => {
     const response = await axios.get("/api/pesanan");
+    setTotalData(response.data.length);
 
     setData(
-      response.data.slice((page - 1) * resultsPerPage, page * resultsPerPage)
+      response.data.slice(
+        (pages - 1) * resultsPerPage + 1,
+        pages * resultsPerPage
+      )
     );
   };
 
   useEffect(() => {
-    getData();
+    getData(page);
   }, []);
+
+  useEffect(() => {
+    getData(page);
+  }, [page]);
 
   return (
     <Layout>
@@ -161,7 +170,7 @@ function Pesanan() {
         </Table>
         <TableFooter>
           <Pagination
-            totalResults={data.length}
+            totalResults={totalData}
             resultsPerPage={resultsPerPage}
             label="Table navigation"
             onChange={onPageChange}

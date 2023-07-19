@@ -66,6 +66,7 @@ function Dashboard() {
     jumlah_pesanan: 0,
     total_pendapatan: 0,
   });
+  const [totalData, setTotalData] = useState<number>(0);
 
   const resultsPerPage = 5;
 
@@ -83,6 +84,8 @@ function Dashboard() {
   const getData = async () => {
     const response = await axios.get("/api/pesanan");
     const laporan = await axios.get("/api/laporan");
+    setTotalData(response.data.length);
+
     setData(
       response.data.slice((page - 1) * resultsPerPage, page * resultsPerPage)
     );
@@ -93,9 +96,21 @@ function Dashboard() {
     setLaporan(laporan.data);
   };
 
+  const nextPage = async () => {
+    const response = await axios.get("/api/pesanan");
+
+    setData(
+      response.data.slice((page - 1) * resultsPerPage, page * resultsPerPage)
+    );
+  };
+
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    nextPage();
+  }, [page]);
 
   return (
     <Layout>
@@ -214,7 +229,7 @@ function Dashboard() {
         </Table>
         <TableFooter>
           <Pagination
-            totalResults={data.length}
+            totalResults={totalData}
             resultsPerPage={resultsPerPage}
             label="Table navigation"
             onChange={onPageChange}
