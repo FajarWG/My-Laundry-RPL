@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 
 import { Input, Label, Select, Button } from "@roketid/windmill-react-ui";

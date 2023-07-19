@@ -66,9 +66,9 @@ function CrateAccount() {
                     <th className="px-4 py-2 text-gray-600"></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="text-gray-700 dark:text-gray-200">
                   <tr>
-                    <td className="px-4 py-2 border-0">Nama</td>
+                    <td className="px-4 py-2 border-0 ">Nama</td>
                     <td className="px-4 py-2 border-0">
                       : {data.nama_pelanggan}
                     </td>
