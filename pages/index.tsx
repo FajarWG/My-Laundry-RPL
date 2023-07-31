@@ -1,13 +1,22 @@
+/* eslint-disable @next/next/link-passhref */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 import CTA from "components/CTA";
 import InfoCard from "components/Cards/InfoCard";
 import PageTitle from "components/Typography/PageTitle";
 import RoundIcon from "components/RoundIcon";
 import Layout from "containers/Layout";
-import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "icons";
+import {
+  ChatIcon,
+  CartIcon,
+  MoneyIcon,
+  PeopleIcon,
+  EditIcon,
+  PagesIcon,
+} from "icons";
 
 import {
   TableBody,
@@ -19,6 +28,7 @@ import {
   TableFooter,
   Badge,
   Pagination,
+  Button,
 } from "@roketid/windmill-react-ui";
 
 import {
@@ -46,6 +56,7 @@ function Dashboard() {
   );
 
   interface IProps {
+    id_pesanan: string;
     nama_pelanggan: string;
     jumlah_pakaian: number;
     layanan: string;
@@ -69,6 +80,7 @@ function Dashboard() {
   const [totalData, setTotalData] = useState<number>(0);
 
   const resultsPerPage = 5;
+  const today = new Date().toISOString().slice(0, 10);
 
   function onPageChange(p: number) {
     setPage(p);
@@ -83,11 +95,15 @@ function Dashboard() {
 
   const getData = async () => {
     const response = await axios.get("/api/pesanan");
+    const filterData = response.data.filter((item: IProps) =>
+      item.tanggal.includes(today)
+    );
+
     const laporan = await axios.get("/api/laporan");
-    setTotalData(response.data.length);
+    setTotalData(filterData.length);
 
     setData(
-      response.data.slice((page - 1) * resultsPerPage, page * resultsPerPage)
+      filterData.slice((page - 1) * resultsPerPage, page * resultsPerPage)
     );
     if (!laporan.data) {
       return;
@@ -98,9 +114,12 @@ function Dashboard() {
 
   const nextPage = async () => {
     const response = await axios.get("/api/pesanan");
+    const filterData = response.data.filter((item: IProps) =>
+      item.tanggal.includes(today)
+    );
 
     setData(
-      response.data.slice((page - 1) * resultsPerPage, page * resultsPerPage)
+      filterData.slice((page - 1) * resultsPerPage, page * resultsPerPage)
     );
   };
 
@@ -189,6 +208,8 @@ function Dashboard() {
               <TableCell>Tanggal</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Status Pembayaran</TableCell>
+              <TableCell>Edit</TableCell>
+              <TableCell>Bagikan</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
@@ -222,6 +243,25 @@ function Dashboard() {
                   <Badge type={statusProses(user.status_pembayaran)}>
                     {user.status_pembayaran}
                   </Badge>
+                </TableCell>
+                <TableCell>
+                  <Link href={`/edit/${user.id_pesanan}`}>
+                    <Button layout="link" aria-label="Edit">
+                      <EditIcon className="w-4 h-4" aria-hidden="true" />
+                    </Button>
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <a
+                    // href={`https://api.whatsapp.com/send?phone=+6285155229511&text=Cek%20pesanan%20laundry%20kamu%20disini%20:%20http://localhost:3000/pelanggan/${user.id_pesanan}`}
+                    href={`/pelanggan/${user.id_pesanan}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Button layout="link" aria-label="Edit">
+                      <PagesIcon className="w-4 h-4" aria-hidden="true" />
+                    </Button>
+                  </a>
                 </TableCell>
               </TableRow>
             ))}

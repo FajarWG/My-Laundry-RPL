@@ -85,13 +85,22 @@ function Charts() {
 
   const lineOptions = {
     data: {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+      ],
       datasets: [
         {
           label: "Pesanan",
           backgroundColor: "#0694a2",
           borderColor: "#0694a2",
-          data: [0, 0, 0, 0, 0, 0, totalMonths],
+          data: [0, 0, 0, 0, 0, 0, 0, totalMonths],
           fill: false,
         },
       ],
@@ -126,19 +135,28 @@ function Charts() {
 
   const barOptions = {
     data: {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+      ],
       datasets: [
         {
           label: "Regular",
           backgroundColor: "#0694a2",
           borderWidth: 1,
-          data: [0, 0, 0, 0, 0, 0, totalLayanan.Regular],
+          data: [0, 0, 0, 0, 0, 0, 0, totalLayanan.Regular],
         },
         {
           label: "Express",
           backgroundColor: "#7e3af2",
           borderWidth: 1,
-          data: [0, 0, 0, 0, 0, 0, totalLayanan.Express],
+          data: [0, 0, 0, 0, 0, 0, 0, totalLayanan.Express],
         },
       ],
     },
@@ -159,7 +177,7 @@ function Charts() {
         <PageTitle>Laporan Penjualan</PageTitle>
         <div className="flex space-x-4">
           <Select className="mt-1">
-            <option selected>Juli</option>
+            <option selected>Agustus</option>
           </Select>
           <Select className="mt-1 w-28">
             <option>2023</option>

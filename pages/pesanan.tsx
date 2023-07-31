@@ -77,12 +77,10 @@ function Pesanan() {
   const getData = async (pages: number) => {
     const response = await axios.get("/api/pesanan");
     setTotalData(response.data.length);
+    console.log(response.data);
 
     setData(
-      response.data.slice(
-        (pages - 1) * resultsPerPage + 1,
-        pages * resultsPerPage
-      )
+      response.data.slice((pages - 1) * resultsPerPage, pages * resultsPerPage)
     );
   };
 
