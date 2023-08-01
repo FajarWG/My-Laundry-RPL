@@ -59,6 +59,8 @@ function Charts() {
     Express: 0,
   });
 
+  const [month, setMonth] = useState<string>("");
+
   const getData = async () => {
     const response = await axios.get("/api/pesanan");
     const laporan = await axios.get("/api/laporan?laporan");
@@ -168,16 +170,29 @@ function Charts() {
     },
   };
 
+  const getFilter = async () => {
+    const response = await axios.get(`/api/laporan?bulan=${month}`);
+    setLaporan(response.data);
+  };
+
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    getFilter();
+  }, [month]);
   return (
     <Layout>
       <div className="flex justify-between items-center">
         <PageTitle>Laporan Penjualan</PageTitle>
         <div className="flex space-x-4">
-          <Select className="mt-1">
-            <option selected>Agustus</option>
+          <Select className="mt-1" onChange={(e) => setMonth(e.target.value)}>
+            <option selected value={""}>
+              Bulan
+            </option>
+            <option value={"07"}>July</option>
+            <option value={"08"}>Agustus</option>
           </Select>
           <Select className="mt-1 w-28">
             <option>2023</option>
