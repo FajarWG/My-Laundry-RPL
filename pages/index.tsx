@@ -87,7 +87,7 @@ function Dashboard() {
   }
 
   const statusProses = (status: string) => {
-    if (status === "Diproses") {
+    if (status === "Diproses" || status === "Belum Dibayar") {
       return "warning";
     }
     return "success";
