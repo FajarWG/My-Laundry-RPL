@@ -14,8 +14,22 @@ export default async function handler(req: Request, res: NextApiResponse) {
     filter = "laporan";
   }
 
+  const today = url?.split("?")[1];
+
   if (req.method === "GET") {
     try {
+      if (today === "today") {
+        const laporan = await prisma.laporan.findFirst({
+          where: {
+            tanggal_laporan: new Date().toISOString().slice(0, 10),
+          },
+        });
+
+        console.log(laporan);
+
+        return res.status(200).json(laporan);
+      }
+
       if (filter === "laporan") {
         const laporan = await prisma.laporan.findMany();
 
@@ -49,14 +63,6 @@ export default async function handler(req: Request, res: NextApiResponse) {
 
         return res.status(200).json(total);
       }
-
-      const laporan = await prisma.laporan.findFirst({
-        where: {
-          tanggal_laporan: new Date().toISOString().slice(0, 10),
-        },
-      });
-
-      return res.status(200).json(laporan);
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: "Something went wrong" });

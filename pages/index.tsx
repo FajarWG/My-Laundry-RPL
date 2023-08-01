@@ -99,7 +99,7 @@ function Dashboard() {
       item.tanggal.includes(today)
     );
 
-    const laporan = await axios.get("/api/laporan");
+    const laporan = await axios.get("/api/laporan?today");
     setTotalData(filterData.length);
 
     setData(

@@ -49,40 +49,58 @@ function Charts() {
     jumlah_pesanan: 0,
     total_pendapatan: 0,
   });
+  const [tempData, setTempData] = useState<[]>([]);
   const [data, setData] = useState<[]>([]);
-  const [totalMonths, setTotalMonths] = useState<number>(0);
-  const [totalLayanan, setTotalLayanan] = useState<{
-    Regular: number;
-    Express: number;
-  }>({
-    Regular: 0,
-    Express: 0,
+  const [totalMonths, setTotalMonths] = useState<any>({
+    total: 0,
+    july: 0,
+    august: 0,
   });
+  const [totalLayanan, setTotalLayanan] = useState([
+    {
+      Regular: 0,
+      Express: 0,
+    },
+    {
+      Regular: 0,
+      Express: 0,
+    },
+  ]);
 
   const [month, setMonth] = useState<string>("");
 
   const getData = async () => {
     const response = await axios.get("/api/pesanan");
     const laporan = await axios.get("/api/laporan?laporan");
-    setData(
-      response.data.slice((page - 1) * resultsPerPage, page * resultsPerPage)
-    );
+    setData(response.data);
+    setTempData(response.data);
+    console.log(response.data[0].tanggal.split("-")[1]);
     if (!laporan.data) return;
 
     setLaporan(laporan.data);
-    setTotalMonths(
-      response.data
-        .map((item: any) => item.tanggal)
-        .filter(
-          (value: any, index: any, self: any) => self.indexOf(value) === index
-        ).length
+    const july = response.data.filter(
+      (item: any) => item.tanggal.split("-")[1] === "07"
     );
-    setTotalLayanan({
-      Regular: response.data.filter((item: any) => item.layanan === "regular")
-        .length,
-      Express: response.data.filter((item: any) => item.layanan === "express")
-        .length,
+
+    const totalJuly = july.length;
+
+    setTotalMonths({
+      total: response.data.length,
+      july: totalJuly,
+      august: response.data.length - totalJuly,
     });
+    setTotalLayanan([
+      {
+        Regular: july.filter((item: any) => item.layanan === "regular").length,
+        Express: july.filter((item: any) => item.layanan === "express").length,
+      },
+      {
+        Regular: response.data.filter((item: any) => item.layanan === "regular")
+          .length,
+        Express: response.data.filter((item: any) => item.layanan === "express")
+          .length,
+      },
+    ]);
   };
 
   const lineOptions = {
@@ -102,7 +120,7 @@ function Charts() {
           label: "Pesanan",
           backgroundColor: "#0694a2",
           borderColor: "#0694a2",
-          data: [0, 0, 0, 0, 0, 0, 0, totalMonths],
+          data: [0, 0, 0, 0, 0, 0, totalMonths.july, totalMonths.august],
           fill: false,
         },
       ],
@@ -152,13 +170,31 @@ function Charts() {
           label: "Regular",
           backgroundColor: "#0694a2",
           borderWidth: 1,
-          data: [0, 0, 0, 0, 0, 0, 0, totalLayanan.Regular],
+          data: [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            totalLayanan[0].Regular,
+            totalLayanan[1].Regular - totalLayanan[0].Regular,
+          ],
         },
         {
           label: "Express",
           backgroundColor: "#7e3af2",
           borderWidth: 1,
-          data: [0, 0, 0, 0, 0, 0, 0, totalLayanan.Express],
+          data: [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            totalLayanan[0].Express,
+            totalLayanan[1].Express - totalLayanan[0].Express,
+          ],
         },
       ],
     },
@@ -173,6 +209,15 @@ function Charts() {
   const getFilter = async () => {
     const response = await axios.get(`/api/laporan?bulan=${month}`);
     setLaporan(response.data);
+
+    let data = tempData as any;
+
+    if (month !== "") {
+      data = tempData.filter(
+        (item: any) => item.tanggal.split("-")[1] === month
+      );
+    }
+    setData(data);
   };
 
   useEffect(() => {
@@ -189,7 +234,7 @@ function Charts() {
         <div className="flex space-x-4">
           <Select className="mt-1" onChange={(e) => setMonth(e.target.value)}>
             <option selected value={""}>
-              Bulan
+              Semua Bulan
             </option>
             <option value={"07"}>July</option>
             <option value={"08"}>Agustus</option>

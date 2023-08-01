@@ -4,9 +4,7 @@ import { NextApiResponse } from "next";
 
 export default async function handler(req: Request, res: NextApiResponse) {
   const { url } = req;
-  console.log(url);
   const id = url?.split("/")[3];
-  console.log(id);
 
   if (req.method === "GET") {
     try {
