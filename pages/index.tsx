@@ -24,7 +24,7 @@ function LoginPage() {
             <Image
               aria-hidden="true"
               className="hidden object-cover w-full h-full"
-              src={imgSource}
+              src="https://www.archify.com/files/professional/projects/l/h58rexhn9k.jpg"
               alt="Office"
               layout="fill"
             />
@@ -32,7 +32,7 @@ function LoginPage() {
           <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div className="w-full">
               <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                Login
+                Login My Laundry
               </h1>
               <Label>
                 <span>Username</span>
