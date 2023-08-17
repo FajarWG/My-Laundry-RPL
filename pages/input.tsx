@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { Input, Label, Select, Button } from "@roketid/windmill-react-ui";
@@ -36,6 +36,12 @@ function Forms() {
     setIsLoaded(false);
   };
 
+  useEffect(() => {
+    if (name.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/)) {
+      toast.error("Nama tidak boleh mengandung simbol");
+    }
+  }, [name]);
+
   return (
     <Layout>
       <PageTitle>Masukkan Pesanan</PageTitle>
@@ -49,6 +55,12 @@ function Forms() {
             placeholder="Jane Doe"
             onChange={(e) => setName(e.target.value)}
           />
+        </Label>
+
+        <Label>
+          <span>No HP</span>
+
+          <Input type="number" className="mt-1" placeholder="0851555" />
         </Label>
 
         <Label className="mt-1">

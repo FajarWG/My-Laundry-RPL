@@ -22,7 +22,7 @@ function SidebarContent({ linkClicked }: ISidebarContent) {
 
   return (
     <div className="text-gray-500 dark:text-gray-400">
-      <Link href="/#" passHref>
+      <Link href="/dashboard" passHref>
         <div className="ml-6 py-6">
           <a className="text-lg font-bold text-gray-800 dark:text-gray-200">
             {appName}

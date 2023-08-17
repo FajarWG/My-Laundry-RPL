@@ -73,6 +73,34 @@ function Header() {
               )}
             </button>
           </li>
+          <li className="relative">
+            <button
+              className="rounded-full focus:shadow-outline-purple focus:outline-none"
+              onClick={handleProfileClick}
+              aria-label="Account"
+              aria-haspopup="true"
+            >
+              <Avatar
+                className="align-middle"
+                src="https://fajarwg.netlify.app/images/me.png"
+                alt=""
+                aria-hidden="true"
+              />
+            </button>
+            <Dropdown
+              align="right"
+              isOpen={isProfileMenuOpen}
+              onClose={() => setIsProfileMenuOpen(false)}
+            >
+              <DropdownItem tag="a" href="/">
+                <OutlineLogoutIcon
+                  className="w-4 h-4 mr-3"
+                  aria-hidden="true"
+                />
+                <span>Log out</span>
+              </DropdownItem>
+            </Dropdown>
+          </li>
         </ul>
       </div>
     </header>

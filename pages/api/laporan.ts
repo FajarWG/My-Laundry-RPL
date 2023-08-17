@@ -25,7 +25,7 @@ export default async function handler(req: Request, res: NextApiResponse) {
           },
         });
 
-        console.log(laporan);
+        console.log("laporan", laporan);
 
         return res.status(200).json(laporan);
       }
