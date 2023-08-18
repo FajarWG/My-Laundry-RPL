@@ -1,6 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
+
+import toast from "react-hot-toast";
 
 import {
   Label,
@@ -10,11 +13,25 @@ import {
 } from "@roketid/windmill-react-ui";
 
 function LoginPage() {
+  const route = useRouter();
+
   const { mode } = useContext(WindmillContext);
-  const imgSource =
-    mode === "dark"
-      ? "/assets/img/login-office-dark.jpeg"
-      : "/assets/img/login-office.jpeg";
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = () => {
+    console.log("te");
+    if (name === "admin" && password === "admin") {
+      toast.success("Login Sukses");
+      setTimeout(() => {
+        route.push("/dashboard");
+      }, 2000);
+    } else if (name === "" && password === "") {
+      toast.error("Password atau Username Tidak Boleh Kosong");
+    } else {
+      toast.error("Password atau Username Salah");
+    }
+  };
 
   return (
     <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
@@ -36,7 +53,12 @@ function LoginPage() {
               </h1>
               <Label>
                 <span>Username</span>
-                <Input className="mt-1" type="text" placeholder="fajarwg" />
+                <Input
+                  className="mt-1"
+                  type="text"
+                  placeholder="username"
+                  onChange={(e) => setName(e.target.value)}
+                />
               </Label>
 
               <Label className="mt-4">
@@ -45,14 +67,18 @@ function LoginPage() {
                   className="mt-1"
                   type="password"
                   placeholder="***************"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Label>
 
-              <Link href="/dashboard" passHref={true}>
-                <Button className="mt-4" block>
-                  Log in
-                </Button>
-              </Link>
+              <Button
+                className="mt-4"
+                onClick={() => {
+                  handleSubmit();
+                }}
+              >
+                Log in
+              </Button>
             </div>
           </main>
         </div>
