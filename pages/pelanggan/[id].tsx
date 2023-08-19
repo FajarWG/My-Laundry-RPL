@@ -57,7 +57,7 @@ function CrateAccount() {
           <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2 border-y-8 border-y-indigo-500">
             <div className="w-full items-center justify-center">
               <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200 text-center">
-                Pesanan My Laundry
+                Pesanan Berdry
               </h1>
               <table className="table-auto w-full border-0 text-gray-700 dark:text-gray-200">
                 <thead>

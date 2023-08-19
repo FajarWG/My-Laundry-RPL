@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Windmill usePreferences={true}>
       <Head>
-        <title>My Laundry</title>
+        <title>Berdry</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Toaster />
